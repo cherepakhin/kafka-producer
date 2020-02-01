@@ -4,7 +4,7 @@ pipeline {
         stage('Source') {// Получение кода;
             steps {
                 // Получаем код из нашего Git-репозитория;
-                git 'https://github.com/cherepakhin/rent.git'
+                git 'https://github.com/cherepakhin/kafka-producer.git'
             }
         }
         stage('test&package') {// Компиляция и выполнение модульного тестирования;
