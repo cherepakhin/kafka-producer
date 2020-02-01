@@ -1,0 +1,34 @@
+spring:
+  kafka:
+    bootstrap-servers: v.perm.ru:9093
+  dataSource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.1.20:5432/kafka-test
+    username: dbadmin
+    password: qwerty1
+    #        generate_statistics: true
+  jpa:
+    # show SQL statements in console.
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        # Hibernate ddl auto (create, create-drop, validate, update)
+        ddl-auto: create-drop
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+
+  jmx:
+    default-domain: kafkaproducer
+
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: info
+    org.hibernate: info
+
+topic: test
+
