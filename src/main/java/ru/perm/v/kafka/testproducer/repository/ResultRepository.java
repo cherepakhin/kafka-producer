@@ -1,4 +1,4 @@
-package ru.perm.v.testproducer.repository;
+package ru.perm.v.kafka.testproducer.repository;
 
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

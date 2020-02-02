@@ -1,4 +1,4 @@
-package ru.perm.v.testproducer.service;
+package ru.perm.v.kafka.testproducer.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

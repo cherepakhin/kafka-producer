@@ -1,4 +1,4 @@
-package ru.perm.v.testproducer.config;
+package ru.perm.v.kafka.testproducer.config;
 
 import java.util.HashMap;
 import java.util.Map;

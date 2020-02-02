@@ -1,4 +1,4 @@
-package ru.perm.v.testproducer.service;
+package ru.perm.v.kafka.testproducer.service;
 
 import java.util.UUID;
 import javassist.NotFoundException;
@@ -11,7 +11,7 @@ import ru.perm.v.kafka.dto.RequestDTO;
 import ru.perm.v.kafka.dto.ResultDTO;
 import ru.perm.v.kafka.model.Result;
 import ru.perm.v.kafka.model.Status;
-import ru.perm.v.testproducer.repository.ResultRepository;
+import ru.perm.v.kafka.testproducer.repository.ResultRepository;
 
 /**
  * Сервис запросов на обработку
