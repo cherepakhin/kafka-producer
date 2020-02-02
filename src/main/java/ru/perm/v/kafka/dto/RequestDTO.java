@@ -18,8 +18,11 @@ public class RequestDTO {
   @ApiModelProperty(notes = "Идентификатор запроса")
   private UUID guid;
 
+  public RequestDTO() {
+  }
+
   public RequestDTO(Result result) {
-    this.guid=result.getGuid();
+    this.guid = result.getGuid();
   }
 
   public UUID getGuid() {

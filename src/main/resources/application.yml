@@ -31,4 +31,7 @@ logging:
     org.hibernate: info
 
 topic: test
-
+#Группа consumer-ов
+group-id: my_group_id
+#Макс. кол-во запущенных потоков-обработчиков
+threads-max: 3

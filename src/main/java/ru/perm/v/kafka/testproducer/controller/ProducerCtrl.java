@@ -43,7 +43,7 @@ public class ProducerCtrl {
     try {
       resultService.updateByDTO(dto);
     } catch (NotFoundException e) {
-      LOG.error("Not found entity with GUID: {}",dto.getGuid());
+      LOG.error("Not found entity with GUID: {}", dto.getGuid());
     }
   }
 

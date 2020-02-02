@@ -57,7 +57,7 @@ public class KafkaProducerConfig {
   public KafkaTransactionManager<String, RequestDTO> kafkaTransactionManager() {
     KafkaTransactionManager<String, RequestDTO> ktm =
         new KafkaTransactionManager<>(
-        producerFactory());
+            producerFactory());
     ktm.setTransactionSynchronization(
         AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION);
     return ktm;

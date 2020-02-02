@@ -82,13 +82,13 @@ class ResultServiceTest {
     ResultService mockService = spy(resultService);
 
     UUID guid = UUID.randomUUID();
-    ResultDTO dto = new ResultDTO(guid,true);
-    Result result = new Result(guid,Status.SUCCESS);
+    ResultDTO dto = new ResultDTO(guid, true);
+    Result result = new Result(guid, Status.SUCCESS);
 
     doNothing().when(mockService).update(result);
 
     mockService.updateByDTO(dto);
-    verify(mockService,times(1)).update(result);
+    verify(mockService, times(1)).update(result);
   }
 
   @Test
@@ -96,12 +96,12 @@ class ResultServiceTest {
     ResultService mockService = spy(resultService);
 
     UUID guid = UUID.randomUUID();
-    ResultDTO dto = new ResultDTO(guid,false);
-    Result result = new Result(guid,Status.FAIL);
+    ResultDTO dto = new ResultDTO(guid, false);
+    Result result = new Result(guid, Status.FAIL);
 
     doNothing().when(mockService).update(result);
 
     mockService.updateByDTO(dto);
-    verify(mockService,times(1)).update(result);
+    verify(mockService, times(1)).update(result);
   }
 }
