@@ -9,10 +9,10 @@ spring:
     #        generate_statistics: true
   jpa:
     # show SQL statements in console.
-    show-sql: true
+    #    show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        #        format_sql: true
         # Hibernate ddl auto (create, create-drop, validate, update)
         ddl-auto: create-drop
     database: postgresql
@@ -22,16 +22,12 @@ spring:
   jmx:
     default-domain: kafkaproducer
 
-# Logger configuration
-logging:
-  pattern:
-    console: "%d %-5level %logger : %msg%n"
-  level:
-    org.springframework: info
-    org.hibernate: info
-
 topic: test
 #Группа consumer-ов
 group-id: my_group_id
 #Макс. кол-во запущенных потоков-обработчиков
-threads-max: 3
+threads-max: 10
+fixedRate: 2000
+
+#Задержка в UserService
+delay-user-process: 500

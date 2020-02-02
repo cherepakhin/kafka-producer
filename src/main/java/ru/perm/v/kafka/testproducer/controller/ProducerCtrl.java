@@ -7,6 +7,7 @@ import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,7 @@ public class ProducerCtrl {
    *
    * @param qty -Кол-во запросов
    */
+  @Async
   @PostMapping("/generate-req")
   @ApiOperation(value = "Генерирование запросов для Kafka")
   public void generateRequest(

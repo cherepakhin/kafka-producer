@@ -2,7 +2,6 @@ package ru.perm.v.kafka.testproducer.service;
 
 import java.util.UUID;
 import javassist.NotFoundException;
-import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,6 @@ public class ResultService {
    *
    * @param qty - количество запросов для генерации
    */
-  @Transactional
   public void generate(Integer qty) {
     for (int i = 0; i < qty; i++) {
       Result result = new Result(UUID.randomUUID(), Status.WAIT);
@@ -45,7 +43,6 @@ public class ResultService {
   /**
    * Обработка результата
    */
-  @Transactional
   public void update(Result result) throws NotFoundException {
     if (!resultRepository.existsById(result.getGuid())) {
       String msgError = String.format("Process with GUID not found. "
@@ -57,7 +54,6 @@ public class ResultService {
     resultRepository.save(result);
   }
 
-  @Transactional
   public void updateByDTO(ResultDTO dto) throws NotFoundException {
     Result result = new Result(dto.getGuid(),
         Boolean.TRUE.equals(dto.getSuccess()) ? Status.SUCCESS :
