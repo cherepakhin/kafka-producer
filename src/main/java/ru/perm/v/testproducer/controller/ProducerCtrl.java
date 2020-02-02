@@ -27,7 +27,7 @@ public class ProducerCtrl {
 
   @GetMapping("/echo")
   public String echo(@RequestParam String msg) {
-    LOG.info(String.format("----------- Echo: %s", msg));
+    LOG.info("----------- Echo: {}", msg);
     resultService.generate(1);
     return msg;
   }
@@ -40,7 +40,7 @@ public class ProducerCtrl {
   @PostMapping("/set-result")
   @ApiOperation(value = "Получение результата обработки")
   public void recieveResult(@RequestBody ResultDTO dto) {
-
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -53,6 +53,6 @@ public class ProducerCtrl {
   public void generateRequest(
       @ApiParam(value = "Кол-во запросов", required = true)
       @RequestBody Integer qty) {
-
+    throw new UnsupportedOperationException();
   }
 }

@@ -30,7 +30,7 @@ public class KafkaProducer {
    * @param dto - запрос на выполнение
    */
   public void send(RequestDTO dto) {
-    LOG.info(String.format("Sending REQUEST: %s", dto));
+    LOG.info("Sending REQUEST: {}", dto);
     kafkaTemplate.executeInTransaction(t -> t.send(topic, dto));
   }
 }

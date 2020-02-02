@@ -54,8 +54,9 @@ public class KafkaProducerConfig {
   }
 
   @Bean
-  public KafkaTransactionManager kafkaTransactionManager() {
-    KafkaTransactionManager ktm = new KafkaTransactionManager(
+  public KafkaTransactionManager<String, RequestDTO> kafkaTransactionManager() {
+    KafkaTransactionManager<String, RequestDTO> ktm =
+        new KafkaTransactionManager<>(
         producerFactory());
     ktm.setTransactionSynchronization(
         AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION);
@@ -72,7 +73,7 @@ public class KafkaProducerConfig {
   @Bean(name = "chainedTransactionManager")
   public ChainedTransactionManager chainedTransactionManager(
       JpaTransactionManager jpaTransactionManager,
-      KafkaTransactionManager kafkaTransactionManager) {
+      KafkaTransactionManager<String, RequestDTO> kafkaTransactionManager) {
     return new ChainedTransactionManager(kafkaTransactionManager,
         jpaTransactionManager);
   }
