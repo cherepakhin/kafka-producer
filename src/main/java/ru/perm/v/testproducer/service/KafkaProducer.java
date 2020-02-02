@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
-import org.springframework.util.concurrent.ListenableFuture;
 import ru.perm.v.kafka.dto.RequestDTO;
 
 /**
@@ -21,7 +19,7 @@ public class KafkaProducer {
 
   // Тема
   @Value("${topic}")
-  String TOPIC;
+  String topic;
 
   @Autowired
   private KafkaTemplate<String, RequestDTO> kafkaTemplate;
@@ -33,8 +31,6 @@ public class KafkaProducer {
    */
   public void send(RequestDTO dto) {
     LOG.info(String.format("Sending REQUEST: %s", dto));
-    ListenableFuture<SendResult<String, RequestDTO>> result = kafkaTemplate
-        .send(TOPIC, dto);
-    result.completable().thenAccept(r -> LOG.info(String.format("Sending result: %s", r.toString())));
+    kafkaTemplate.executeInTransaction(t -> t.send(topic, dto));
   }
 }

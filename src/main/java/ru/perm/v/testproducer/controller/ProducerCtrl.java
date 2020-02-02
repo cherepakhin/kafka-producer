@@ -27,7 +27,7 @@ public class ProducerCtrl {
 
   @GetMapping("/echo")
   public String echo(@RequestParam String msg) {
-    LOG.info("-----------Echo: " + msg);
+    LOG.info(String.format("----------- Echo: %s", msg));
     resultService.generate(1);
     return msg;
   }

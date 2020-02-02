@@ -2,15 +2,21 @@ package ru.perm.v.testproducer.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.EntityManagerFactory;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.transaction.ChainedTransactionManager;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.kafka.transaction.KafkaTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 import ru.perm.v.kafka.dto.RequestDTO;
 
 /**
@@ -36,11 +42,38 @@ public class KafkaProducerConfig {
 
   @Bean
   public ProducerFactory<String, RequestDTO> producerFactory() {
-    return new DefaultKafkaProducerFactory<>(producerConfigs());
+    DefaultKafkaProducerFactory<String, RequestDTO> factory = new DefaultKafkaProducerFactory<>(
+        producerConfigs());
+    factory.setTransactionIdPrefix("tx-kafka-");
+    return factory;
   }
 
   @Bean
   public KafkaTemplate<String, RequestDTO> kafkaTemplate() {
     return new KafkaTemplate<>(producerFactory());
+  }
+
+  @Bean
+  public KafkaTransactionManager kafkaTransactionManager() {
+    KafkaTransactionManager ktm = new KafkaTransactionManager(
+        producerFactory());
+    ktm.setTransactionSynchronization(
+        AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION);
+    return ktm;
+  }
+
+
+  @Bean
+  @Primary
+  public JpaTransactionManager transactionManager(EntityManagerFactory em) {
+    return new JpaTransactionManager(em);
+  }
+
+  @Bean(name = "chainedTransactionManager")
+  public ChainedTransactionManager chainedTransactionManager(
+      JpaTransactionManager jpaTransactionManager,
+      KafkaTransactionManager kafkaTransactionManager) {
+    return new ChainedTransactionManager(kafkaTransactionManager,
+        jpaTransactionManager);
   }
 }
