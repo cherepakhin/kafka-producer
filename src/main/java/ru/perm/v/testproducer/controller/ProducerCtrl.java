@@ -3,6 +3,7 @@ package ru.perm.v.testproducer.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class ProducerCtrl {
   @GetMapping("/echo")
   public String echo(@RequestParam String msg) {
     LOG.info("----------- Echo: {}", msg);
-    resultService.generate(1);
     return msg;
   }
 
@@ -40,7 +40,11 @@ public class ProducerCtrl {
   @PostMapping("/set-result")
   @ApiOperation(value = "Получение результата обработки")
   public void recieveResult(@RequestBody ResultDTO dto) {
-    throw new UnsupportedOperationException();
+    try {
+      resultService.update(dto);
+    } catch (NotFoundException e) {
+      LOG.error("Not found entity with GUID: {}",dto.getGuid());
+    }
   }
 
   /**
@@ -53,6 +57,6 @@ public class ProducerCtrl {
   public void generateRequest(
       @ApiParam(value = "Кол-во запросов", required = true)
       @RequestBody Integer qty) {
-    throw new UnsupportedOperationException();
+    resultService.generate(1);
   }
 }

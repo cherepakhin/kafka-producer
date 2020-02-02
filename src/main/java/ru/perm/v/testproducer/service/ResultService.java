@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.perm.v.kafka.dto.RequestDTO;
+import ru.perm.v.kafka.dto.ResultDTO;
 import ru.perm.v.kafka.model.Result;
 import ru.perm.v.kafka.model.Status;
 import ru.perm.v.testproducer.repository.ResultRepository;
@@ -46,13 +47,21 @@ public class ResultService {
    */
   @Transactional
   public void update(Result result) throws NotFoundException {
-    if (resultRepository.existsById(result.getGuid())) {
-      String msgError=String.format("Process with GUID not found. "
-              + "GUID: "
-              + "%s", result.getGuid());
+    if (!resultRepository.existsById(result.getGuid())) {
+      String msgError = String.format("Process with GUID not found. "
+          + "GUID: "
+          + "%s", result.getGuid());
       LOG.error(msgError);
       throw new NotFoundException(msgError);
     }
     resultRepository.save(result);
+  }
+
+  @Transactional
+  public void update(ResultDTO dto) throws NotFoundException {
+    Result result = new Result(dto.getGuid(),
+        Boolean.TRUE.equals(dto.getSuccess()) ? Status.SUCCESS :
+            Status.FAIL);
+    update(result);
   }
 }
