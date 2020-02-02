@@ -41,7 +41,7 @@ public class ProducerCtrl {
   @ApiOperation(value = "Получение результата обработки")
   public void recieveResult(@RequestBody ResultDTO dto) {
     try {
-      resultService.update(dto);
+      resultService.updateByDTO(dto);
     } catch (NotFoundException e) {
       LOG.error("Not found entity with GUID: {}",dto.getGuid());
     }
@@ -56,7 +56,7 @@ public class ProducerCtrl {
   @ApiOperation(value = "Генерирование запросов для Kafka")
   public void generateRequest(
       @ApiParam(value = "Кол-во запросов", required = true)
-      @RequestBody Integer qty) {
-    resultService.generate(1);
+      @RequestParam Integer qty) {
+    resultService.generate(qty);
   }
 }

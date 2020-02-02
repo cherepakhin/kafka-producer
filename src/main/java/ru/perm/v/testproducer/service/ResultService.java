@@ -58,7 +58,7 @@ public class ResultService {
   }
 
   @Transactional
-  public void update(ResultDTO dto) throws NotFoundException {
+  public void updateByDTO(ResultDTO dto) throws NotFoundException {
     Result result = new Result(dto.getGuid(),
         Boolean.TRUE.equals(dto.getSuccess()) ? Status.SUCCESS :
             Status.FAIL);
