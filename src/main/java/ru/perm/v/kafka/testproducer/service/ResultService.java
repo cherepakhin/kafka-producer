@@ -2,6 +2,7 @@ package ru.perm.v.kafka.testproducer.service;
 
 import java.util.UUID;
 import javassist.NotFoundException;
+import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import ru.perm.v.kafka.testproducer.repository.ResultRepository;
  * Сервис запросов на обработку
  */
 @Service
+@Transactional
 public class ResultService {
 
   private static final Logger LOG =
